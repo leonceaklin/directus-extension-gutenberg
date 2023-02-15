@@ -1,9 +1,14 @@
 <template>
-	<input :value="value" @input="handleChange($event.target.value)" />
+	<IsolatedBlockEditor
+		@onSaveContent="handleChange"
+	/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { applyReactInVue } from 'veaury'
+import IsolatedBlockEditor from '@automattic/isolated-block-editor';
+
 
 export default defineComponent({
 	props: {
@@ -11,6 +16,9 @@ export default defineComponent({
 			type: String,
 			default: null,
 		},
+	},
+	components: {
+		isolatedBlockEditor: applyReactInVue(IsolatedBlockEditor)
 	},
 	emits: ['input'],
 	setup(props, { emit }) {
@@ -23,12 +31,7 @@ export default defineComponent({
 });
 </script>
 
-<script lang="scss">
-	// Wordpress Styles
-	@import '@wordpress/components/build-style/style.css';
-	@import '@wordpress/block-editor/build-style/style.css';
-	@import '@wordpress/block-library/build-style/style.css';
-	@import '@wordpress/block-library/build-style/editor.css';
-	@import '@wordpress/block-library/build-style/theme.css';
-	@import '@wordpress/format-library/build-style/style.css';
-</script>
+<style lang="scss">
+// Wordpress Styles
+@import '@automattic/isolated-block-editor/build-browser/core.css';
+</style>
